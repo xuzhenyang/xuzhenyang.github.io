@@ -4,8 +4,8 @@
 url: 
 title: 
 keywords: 
-description: 
-author: 
+description: lilpilot's simiki
+author: lilpilot
 deploy:
   - type: git
     remote: 'output'
