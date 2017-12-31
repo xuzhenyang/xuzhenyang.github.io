@@ -32,6 +32,8 @@
 <li><a href="#_1">如何在版本间穿梭</a></li>
 <li><a href="#_2">如何更改远程仓库</a></li>
 <li><a href="#_3">删除远程仓库上的文件</a></li>
+<li><a href="#tag">tag相关</a></li>
+<li><a href="#_4">删除远端分支</a></li>
 </ul>
 </div>
 <h1 id="github">如何创建Github项目</h1>
@@ -105,17 +107,37 @@
 
 <h1 id="_3">删除远程仓库上的文件</h1>
 <p>删除远程仓库上的指定文件：</p>
-<div class="hlcode"><pre><span class="n">get</span> <span class="n">rm</span> <span class="o">--</span><span class="n">cached</span> <span class="n">xxx</span><span class="p">.</span><span class="n">file</span>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">rm</span> <span class="o">--</span><span class="n">cached</span> <span class="n">xxx</span><span class="p">.</span><span class="n">file</span>
 </pre></div>
 
 
 <p>添加.gitignore并忽略文件，然后commit。</p>
+<h1 id="tag">tag相关</h1>
+<p>列出标签：</p>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">tag</span>
+</pre></div>
+
+
+<p>创建轻量级标签：</p>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="kt">tag</span> <span class="o">&lt;</span><span class="nb">tagName</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="kt">tag</span> <span class="o">&lt;</span><span class="nb">tagName</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">commit</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>推送标签至远端：</p>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">tags</span>
+</pre></div>
+
+
+<h1 id="_4">删除远端分支</h1>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="o">--</span><span class="nb">delete</span> <span class="o">&lt;</span><span class="nx">branchName</span><span class="o">&gt;</span>
+</pre></div>
     </div>
     <div id="footer">
       <span>
         <p>Copyright © 2017 lilpilot.
         Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
-        <p>Site Generated 2017-12-20 09:45:14</p>
+        <p>Site Generated 2017-12-31 20:41:15</p>
       </span>
     </div>
 
