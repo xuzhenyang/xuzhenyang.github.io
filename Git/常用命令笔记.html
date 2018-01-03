@@ -130,14 +130,22 @@
 
 
 <h1 id="_4">删除远端分支</h1>
+<p>使用以下两条命令(二选一)删除远端分支：</p>
 <div class="hlcode"><pre><span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="o">--</span><span class="nb">delete</span> <span class="o">&lt;</span><span class="nx">branchName</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="p">:</span><span class="o">&lt;</span><span class="nx">branchName</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>如果提示"error: dst refspec xxx matches more than one."，即为同时存在相同名称的branch和tag，需要通过以下命令指定删除：</p>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="p">:</span><span class="nx">refs</span><span class="p">/</span><span class="nx">heads</span><span class="o">/&lt;</span><span class="nx">branchName</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="p">:</span><span class="nx">refs</span><span class="p">/</span><span class="nb">tags</span><span class="o">/&lt;</span><span class="nx">testName</span><span class="o">&gt;</span>
 </pre></div>
     </div>
     <div id="footer">
       <span>
         <p>Copyright © 2018 lilpilot.
         Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
-        <p>Site Generated 2018-01-02 17:32:31</p>
+        <p>Site Generated 2018-01-03 10:40:21</p>
       </span>
     </div>
 
