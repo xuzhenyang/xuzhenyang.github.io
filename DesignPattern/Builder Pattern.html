@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Builder Patternn - </title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="lilpilot's simiki"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#DesignPattern">DesignPattern</a>&nbsp;&#187;&nbsp;Builder Patternn
+    <span class="updated">Page Updated&nbsp;
+      2018-03-11 22:17
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Builder Patternn</div>
+
+  <h1 id="builder">Builder模式</h1>
+<p>找对象很难吗？找不到的话自己new一个吧，多new几个也行！</p>
+<p>emmm...这个要胸大，那个要腿长，脑壳疼</p>
+<p>试试Builder模式吧</p>
+<h1 id="bb">别bb 看代码</h1>
+<p>将女朋友的构造器私有化，内置Builder类来构建各个参数</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">class</span> <span class="n">Girlfriend</span> <span class="p">{</span>
+    <span class="c1">//一定要有名字!</span>
+    <span class="n">private</span> <span class="n">final</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">private</span> <span class="n">String</span> <span class="n">face</span><span class="p">;</span>
+    <span class="n">private</span> <span class="n">String</span> <span class="n">boobs</span><span class="p">;</span>
+    <span class="n">private</span> <span class="n">String</span> <span class="n">leg</span><span class="p">;</span>
+
+    <span class="n">private</span> <span class="nf">Girlfriend</span><span class="p">(</span><span class="n">GirlfriendBuilder</span> <span class="n">builder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">this</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+        <span class="n">this</span><span class="p">.</span><span class="n">face</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">face</span><span class="p">;</span>
+        <span class="n">this</span><span class="p">.</span><span class="n">boobs</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">boobs</span><span class="p">;</span>
+        <span class="n">this</span><span class="p">.</span><span class="n">leg</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">leg</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="k">static</span> <span class="n">class</span> <span class="n">GirlfriendBuilder</span> <span class="p">{</span>
+        <span class="n">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">private</span> <span class="n">String</span> <span class="n">face</span><span class="p">;</span>
+        <span class="n">private</span> <span class="n">String</span> <span class="n">boobs</span><span class="p">;</span>
+        <span class="n">private</span> <span class="n">String</span> <span class="n">leg</span><span class="p">;</span>
+
+        <span class="n">public</span> <span class="nf">GirlfriendBuilder</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">this</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">public</span> <span class="n">GirlfriendBuilder</span> <span class="nf">face</span><span class="p">(</span><span class="n">String</span> <span class="n">face</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">this</span><span class="p">.</span><span class="n">face</span> <span class="o">=</span> <span class="n">face</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">this</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">public</span> <span class="n">GirlfriendBuilder</span> <span class="nf">boobs</span><span class="p">(</span><span class="n">String</span> <span class="n">boobs</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">this</span><span class="p">.</span><span class="n">boobs</span> <span class="o">=</span> <span class="n">boobs</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">this</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">public</span> <span class="n">GirlfriendBuilder</span> <span class="nf">leg</span><span class="p">(</span><span class="n">String</span> <span class="n">leg</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">this</span><span class="p">.</span><span class="n">leg</span> <span class="o">=</span> <span class="n">leg</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">this</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">public</span> <span class="n">Girlfriend</span> <span class="nf">build</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">new</span> <span class="n">Girlfriend</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="err">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">String</span> <span class="n">toString</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Girlfriend{&quot;</span> <span class="o">+</span>
+                <span class="s">&quot;name=&#39;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&quot;, face=&#39;&quot;</span> <span class="o">+</span> <span class="n">face</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&quot;, boobs=&#39;&quot;</span> <span class="o">+</span> <span class="n">boobs</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&quot;, leg=&#39;&quot;</span> <span class="o">+</span> <span class="n">leg</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>当你需要女朋友的时候，可以非常语义化地进行定制</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">class</span> <span class="n">Main</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Girlfriend</span> <span class="n">girlfriendA</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Girlfriend</span><span class="p">.</span><span class="n">GirlfriendBuilder</span><span class="p">(</span><span class="s">&quot;17岁白丝JK&quot;</span><span class="p">).</span><span class="n">boobs</span><span class="p">(</span><span class="s">&quot;贫乳&quot;</span><span class="p">).</span><span class="n">leg</span><span class="p">(</span><span class="s">&quot;白丝&quot;</span><span class="p">).</span><span class="n">build</span><span class="p">();</span>
+        <span class="n">Girlfriend</span> <span class="n">girlfriendB</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Girlfriend</span><span class="p">.</span><span class="n">GirlfriendBuilder</span><span class="p">(</span><span class="s">&quot;网红妹&quot;</span><span class="p">).</span><span class="n">face</span><span class="p">(</span><span class="s">&quot;瓜子脸&quot;</span><span class="p">).</span><span class="n">boobs</span><span class="p">(</span><span class="s">&quot;大胸&quot;</span><span class="p">).</span><span class="n">leg</span><span class="p">(</span><span class="s">&quot;大长腿&quot;</span><span class="p">).</span><span class="n">build</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">girlfriendA</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">girlfriendB</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>emmmmm...</p>
+<div class="hlcode"><pre><span class="n">Girlfriend</span><span class="p">{</span><span class="n">name</span><span class="o">=</span><span class="err">&#39;</span><span class="mi">17</span><span class="err">岁白丝</span><span class="n">JK</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">face</span><span class="o">=</span><span class="err">&#39;</span><span class="n">null</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">boobs</span><span class="o">=</span><span class="err">&#39;贫乳&#39;</span><span class="p">,</span> <span class="n">leg</span><span class="o">=</span><span class="err">&#39;白丝&#39;</span><span class="p">}</span>
+<span class="n">Girlfriend</span><span class="p">{</span><span class="n">name</span><span class="o">=</span><span class="err">&#39;网红妹&#39;</span><span class="p">,</span> <span class="n">face</span><span class="o">=</span><span class="err">&#39;瓜子脸&#39;</span><span class="p">,</span> <span class="n">boobs</span><span class="o">=</span><span class="err">&#39;大胸&#39;</span><span class="p">,</span> <span class="n">leg</span><span class="o">=</span><span class="err">&#39;大长腿&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<h1 id="_1">参考</h1>
+<p><a href="" title="https://www.jianshu.com/p/e2a2fe3555b9">设计模式之Builder模式</a></p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 lilpilot.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-03-13 23:29:21</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
