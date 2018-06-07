@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Decorator Pattern - </title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="lilpilot's simiki"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#DesignPattern">DesignPattern</a>&nbsp;&#187;&nbsp;Decorator Pattern
+    <span class="updated">Page Updated&nbsp;
+      2018-06-06 23:00
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Decorator Pattern</div>
+
+  <h1 id="_1">装饰器模式</h1>
+<p>装饰器模式 : 使用组合而不是继承，动态地为对象添加功能</p>
+<p>在餐厅点汉堡包，需要配上肥仔快乐水和薯条</p>
+<p>Java的I/O使用了装饰器，FilterInputStream就是抽象的装饰类</p>
+<h1 id="_2">看代码</h1>
+<p>定义抽象组件以及具体组件：</p>
+<div class="hlcode"><pre><span class="c1">//抽象组件</span>
+<span class="n">public</span> <span class="n">abstract</span> <span class="k">class</span> <span class="n">Hamburger</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">desc</span> <span class="o">=</span> <span class="s">&quot;汉堡包&quot;</span><span class="p">;</span>
+
+    <span class="n">public</span> <span class="n">String</span> <span class="n">getDesc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">desc</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">abstract</span> <span class="n">double</span> <span class="n">getPrice</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">//具体对象</span>
+<span class="n">public</span> <span class="k">class</span> <span class="n">BigHamburger</span> <span class="k">extends</span> <span class="n">Hamburger</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">BigHamburger</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s">&quot;大份汉堡&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">double</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mh">30</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">public</span> <span class="k">class</span> <span class="n">SmallHamburger</span> <span class="k">extends</span> <span class="n">Hamburger</span> <span class="p">{</span>
+
+    <span class="n">public</span> <span class="n">SmallHamburger</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s">&quot;小份汉堡&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">double</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mh">20</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>抽象装饰类：</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">abstract</span> <span class="n">class</span> <span class="n">HamburgerDecorator</span> <span class="n">extends</span> <span class="n">Hamburger</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="n">abstract</span> <span class="n">String</span> <span class="n">getDesc</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>具体装饰类：</p>
+<div class="hlcode"><pre><span class="c1">//肥仔快乐水！</span>
+<span class="n">public</span> <span class="k">class</span> <span class="n">Cola</span> <span class="k">extends</span> <span class="n">HamburgerDecorator</span> <span class="p">{</span>
+
+    <span class="n">private</span> <span class="n">Hamburger</span> <span class="n">hamburger</span><span class="p">;</span>
+
+    <span class="c1">//在构造器中引入被装饰者</span>
+    <span class="n">public</span> <span class="n">Cola</span><span class="p">(</span><span class="n">Hamburger</span> <span class="n">hamburger</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">hamburger</span> <span class="o">=</span> <span class="n">hamburger</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">String</span> <span class="n">getDesc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">hamburger</span><span class="p">.</span><span class="n">getDesc</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;,可乐&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">double</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">hamburger</span><span class="p">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">+</span> <span class="mh">8</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">public</span> <span class="k">class</span> <span class="n">Chips</span> <span class="k">extends</span> <span class="n">HamburgerDecorator</span> <span class="p">{</span>
+
+    <span class="n">private</span> <span class="n">Hamburger</span> <span class="n">hamburger</span><span class="p">;</span>
+
+    <span class="n">public</span> <span class="n">Chips</span><span class="p">(</span><span class="n">Hamburger</span> <span class="n">hamburger</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">hamburger</span> <span class="o">=</span> <span class="n">hamburger</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">String</span> <span class="n">getDesc</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">hamburger</span><span class="p">.</span><span class="n">getDesc</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;,薯条&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">public</span> <span class="n">double</span> <span class="n">getPrice</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">hamburger</span><span class="p">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">+</span> <span class="mh">12</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="hlcode"><pre><span class="n">public</span> <span class="n">class</span> <span class="n">Main</span> <span class="p">{</span>
+    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Hamburger</span> <span class="n">hamburger1</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BigHamburger</span><span class="p">();</span>
+        <span class="n">hamburger1</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Cola</span><span class="p">(</span><span class="n">hamburger1</span><span class="p">);</span>
+        <span class="n">hamburger1</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Chips</span><span class="p">(</span><span class="n">hamburger1</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;套餐:&quot;</span> <span class="o">+</span> <span class="n">hamburger1</span><span class="p">.</span><span class="n">getDesc</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; | &quot;</span> <span class="o">+</span> <span class="s">&quot;价格:&quot;</span> <span class="o">+</span> <span class="n">hamburger1</span><span class="p">.</span><span class="n">getPrice</span><span class="p">());</span>
+        <span class="n">Hamburger</span> <span class="n">hamburger2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SmallHamburger</span><span class="p">();</span>
+        <span class="n">hamburger2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Cola</span><span class="p">(</span><span class="n">hamburger2</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">out</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;套餐:&quot;</span> <span class="o">+</span> <span class="n">hamburger2</span><span class="p">.</span><span class="n">getDesc</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; | &quot;</span> <span class="o">+</span> <span class="s">&quot;价格:&quot;</span> <span class="o">+</span> <span class="n">hamburger2</span><span class="p">.</span><span class="n">getPrice</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="err">套餐</span><span class="o">:</span><span class="err">大份汉堡</span><span class="o">,</span><span class="err">可乐</span><span class="o">,</span><span class="err">薯条</span> <span class="o">|</span> <span class="err">价格</span><span class="o">:</span><span class="mf">50.0</span>
+<span class="err">套餐</span><span class="o">:</span><span class="err">小份汉堡</span><span class="o">,</span><span class="err">可乐</span> <span class="o">|</span> <span class="err">价格</span><span class="o">:</span><span class="mf">28.0</span>
+</pre></div>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 lilpilot.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-06-06 23:06:06</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
