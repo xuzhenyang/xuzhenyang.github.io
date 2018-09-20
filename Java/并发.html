@@ -53,14 +53,44 @@
 <h1 id="callable">Callable</h1>
 <p>实现Callable接口，可以在任务完成时返回值</p>
 <p>必须使用ExecutorService.submit()调用</p>
-<h1 id="_3">参考</h1>
+<h1 id="_3">线程</h1>
+<p>线程的四种状态：新建(new)、就绪(Runnable)、阻塞(Blocked)、死亡(Dead)</p>
+<h2 id="_4">线程间的竞争</h2>
+<h3 id="_5">解决资源共享竞争</h3>
+<ol>
+<li>
+<p>synchronized</p>
+</li>
+<li>
+<p>使用Lock对象。lock加锁，在finally里unlock</p>
+</li>
+<li>
+<p>volatile与原子性</p>
+</li>
+<li>
+<p>ThreadLocal创建和管理线程本地存储</p>
+</li>
+</ol>
+<h2 id="_6">线程间的协作</h2>
+<p>wait()与notify()</p>
+<h1 id="to-do">TO-DO</h1>
+<ol>
+<li>
+<p>生产者与消费者</p>
+</li>
+<li>
+<p>乐观锁/悲观锁</p>
+</li>
+</ol>
+<p>...</p>
+<h1 id="_7">参考</h1>
 <p>《Thinking in Java》</p>
     </div>
     <div id="footer">
       <span>
         <p>Copyright © 2018 lilpilot.
         Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
-        <p>Site Generated 2018-09-19 09:23:48</p>
+        <p>Site Generated 2018-09-20 23:09:07</p>
       </span>
     </div>
 
