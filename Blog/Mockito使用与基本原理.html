@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Mockito使用与基本原理 - </title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="lilpilot's simiki"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Blog">Blog</a>&nbsp;&#187;&nbsp;Mockito使用与基本原理
+    <span class="updated">Page Updated&nbsp;
+      2019-06-17 21:42
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Mockito使用与基本原理</div>
+
+  <h2 id="mockito">什么是Mockito</h2>
+<p>Mockito是用于Java的模拟测试框架，可以Mock外部依赖来方便测试</p>
+<h2 id="_1">基本使用</h2>
+<h3 id="mock">创建与配置Mock</h3>
+<p>使用mock方法来创建Mock对象</p>
+<div class="hlcode"><pre><span class="c1">// 使用 mock 静态方法创建 Mock 对象.</span>
+<span class="n">List</span> <span class="n">mockedList</span> <span class="o">=</span> <span class="n">mock</span><span class="p">(</span><span class="n">List</span><span class="p">.</span><span class="k">class</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">mockedList</span> <span class="n">instanceof</span> <span class="n">List</span><span class="p">);</span>
+
+<span class="c1">// mock 方法不仅可以 Mock 接口类, 还可以 Mock 具体的类型.</span>
+<span class="n">ArrayList</span> <span class="n">mockedArrayList</span> <span class="o">=</span> <span class="n">mock</span><span class="p">(</span><span class="n">ArrayList</span><span class="p">.</span><span class="k">class</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">mockedArrayList</span> <span class="n">instanceof</span> <span class="n">List</span><span class="p">);</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">mockedArrayList</span> <span class="n">instanceof</span> <span class="n">ArrayList</span><span class="p">);</span>
+</pre></div>
+
+
+<p>创建完Mock对象后，可以配置其行为</p>
+<div class="hlcode"><pre><span class="n">List</span> <span class="n">mockedList</span> <span class="o">=</span> <span class="n">mock</span><span class="p">(</span><span class="n">List</span><span class="p">.</span><span class="n">class</span><span class="p">);</span>
+
+<span class="c1">// 设置行为</span>
+<span class="c1">// 当调用 mockedList.add(&quot;one&quot;) 时, 返回 true</span>
+<span class="n">when</span><span class="p">(</span><span class="n">mockedList</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;one&quot;</span><span class="p">)).</span><span class="n">thenReturn</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="c1">// 当调用 mockedList.size() 时, 返回 1</span>
+<span class="n">when</span><span class="p">(</span><span class="n">mockedList</span><span class="p">.</span><span class="n">size</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">mockedList</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;one&quot;</span><span class="p">));</span>
+<span class="c1">// 因为我们没有定制 add(&quot;two&quot;), 因此返回默认值, 即 false.</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">mockedList</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;two&quot;</span><span class="p">));</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">mockedList</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="n">Iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">mock</span><span class="p">(</span><span class="n">Iterator</span><span class="p">.</span><span class="n">class</span><span class="p">);</span>
+<span class="n">when</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">next</span><span class="p">()).</span><span class="n">thenReturn</span><span class="p">(</span><span class="s">&quot;Hello,&quot;</span><span class="p">).</span><span class="n">thenReturn</span><span class="p">(</span><span class="s">&quot;Mockito!&quot;</span><span class="p">);</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">i</span><span class="p">.</span><span class="n">next</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">.</span><span class="n">next</span><span class="p">();</span>
+<span class="c1">//assert</span>
+<span class="n">Assert</span><span class="p">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;Hello, Mockito!&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</pre></div>
+
+
+<h3 id="mockspy">Mock与Spy的区别</h3>
+<p>Mock对象只是目标类型的空壳实例，所有的行为可以被跟踪；而Spy对象是对具体实例的封装，可以调用实例的正常方法</p>
+<h2 id="_2">基本原理</h2>
+<p>Mock本质上是一个Proxy代理模式的应用。</p>
+<p>Proxy模式，是在对象提供一个proxy对象，所有对真实对象的调用，都先经过proxy对象，然后由proxy对象根据情况，决定相应的处理，它可以直接做一个自己的处理，也可以再调用真实对象对应的方法。</p>
+<p>所以Mockito本质上就是在代理对象调用方法前，用stub的方式设置其返回值，然后在真实调用时，用代理对象返回起预设的返回值。</p>
+<hr />
+<p>参考:<a href="https://zhuanlan.zhihu.com/p/28983008">Mockito的使用及原理及分析</a></p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2021 lilpilot.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2021-04-13 10:20:14</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
